@@ -5,11 +5,11 @@
                 <h5>Thông tin menu</h5>
             </div>
             <div class="widget-content nopadding">
-                <form action="#" method="get" class="form-horizontal">
+                <form [formGroup]="addMenuForm" (ngSubmit)="saveNewMenu(mForm)" #mForm="ngForm" class="form-horizontal">
                     <div class="control-group">
                         <label class="control-label">Tên<em>*</em> :</label>
                         <div class="controls">
-                            <input type="text" class="span11">
+                            <input type="text" class="span11" [(ngModel)]="addMenu.ten" formControlName="ten">
                         </div>
                     </div>
                     <div class="control-group">
@@ -22,7 +22,7 @@
                         <label class="control-label">Giá<em>*</em> : </label>
                         <div class="controls">
                             <div class="input-append">
-                                <input type="text" placeholder="5.000" class="span11">
+                                <input type="text" placeholder="5.000" class="span11" formControlName="gia">
                                 <span class="add-on">VND</span> </div>
                         </div>
                     </div>
@@ -34,7 +34,7 @@
                     </div>
                     <div class="form-actions">
                         <button type="submit" class="btn btn-success">Lưu</button>
-                        <button type="submit" class="btn btn-danger">Xóa</button>
+                        <button type="button" class="btn btn-danger">Làm Sạch</button>
                     </div>
                 </form>
             </div>
@@ -58,29 +58,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>steave</td>
-                            <td>marki</td>
-                            <td>@hahas</td>
-                            <td>@hahas</td>
-                            <td>@hahas</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>john</td>
-                            <td>deo</td>
-                            <td>@john</td>
-                            <td>@hahas</td>
-                            <td>@hahas</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>collspan text</td>
-                            <td>@twitter</td>
-                            <td>@hahas</td>
-                            <td>@hahas</td>
-                            <td>@hahas</td>
+                        <tr *ngFor="let item of menu;  let i = index">
+                            <td>{{i + 1}}</td>
+                            <td>{{item.hinh}}</td>
+                            <td>{{item.ten}}</td>
+                            <td>{{item.gia}}</td>
+                            <td>{{item.ghichu}}</td>
+                            <td>
+                                <button class="btn btn-primary">Sửa</button>
+                                <button class="btn btn-danger">Xóa</button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
