@@ -11,11 +11,18 @@ export class MenuService {
     }
 
     getAllMenu(): Observable<any> {
-        let result = this._baseService.getAll(Url.GET_MENU)
+        let result = this._baseService.getAll(Url.MENU)
             .map(this.extractData)
             .catch(this.handleError);
         return result;
     }
+
+    addMenu(data): Observable<any> {
+        let result = this._baseService.create(Url.MENU, data)
+                                        .map(this.extractData)
+                                        .catch(this.handleError);
+        return result;
+    } 
 
     
     private extractData(res: Response) {

@@ -33,7 +33,10 @@ export class AddMenuComponent implements OnInit {
 
     saveNewMenu(mForm: NgForm) {
         if(mForm.valid) {
-            
+            console.log(this.addMenu);
+            // this._menuService.addMenu(this.addMenu).subscribe(res => {
+            //     console.log(res);
+            // })
         }
     }
 }

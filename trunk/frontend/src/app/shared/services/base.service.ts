@@ -12,11 +12,23 @@ export class BaseService {
 
     getAll(url:string) {
         var headers = new Headers({ 'Content-Type': 'application/json' });
-
         let options = new RequestOptions({
             method: RequestMethod.Get,
             url: BaseUrl.BASE_URL + url,
             headers: headers,
+        });
+
+        return this.execute(options);
+    }
+
+    
+    create(url:string, data:any) {
+        var headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({
+            method: RequestMethod.Post,
+            url: BaseUrl.BASE_URL + url,
+            headers: headers,
+            body: JSON.stringify(data)
         });
 
         return this.execute(options);
