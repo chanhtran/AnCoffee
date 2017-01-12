@@ -15,26 +15,26 @@
                     <div class="control-group">
                         <label class="control-label">Hình : </label>
                         <div class="controls">
-                            <div class="uploader" id="uniform-undefined"><input type="file" size="19" style="opacity: 0;"><span class="filename">Không có tệp nào được chọn</span><span class="action">Chọn tệp</span></div>
+                            <div class="uploader" id="uniform-undefined"><input type="file" size="19" style="opacity: 0;" [(ngModel)]="addMenu.hinh" formControlName="hinh"><span class="filename">Không có tệp nào được chọn</span><span class="action">Chọn tệp</span></div>
                         </div>
                     </div>
                     <div class="controls-group">
                         <label class="control-label">Giá<em>*</em> : </label>
                         <div class="controls">
                             <div class="input-append">
-                                <input type="text" placeholder="5.000" class="span11" formControlName="gia">
+                                <input type="text" placeholder="5.000" class="span11" formControlName="gia" [(ngModel)]="addMenu.gia">
                                 <span class="add-on">VND</span> </div>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label">Ghi chú: </label>
                         <div class="controls">
-                            <textarea class="span11"></textarea>
+                            <textarea class="span11" [(ngModel)]="addMenu.ghichu" formControlName="ghichu"></textarea>
                         </div>
                     </div>
                     <div class="form-actions">
                         <button type="submit" class="btn btn-success">Lưu</button>
-                        <button type="button" class="btn btn-danger">Làm Sạch</button>
+                        <button type="button" (click)="clearForm()" class="btn btn-danger">Làm Sạch</button>
                     </div>
                 </form>
             </div>
@@ -65,13 +65,49 @@
                             <td>{{item.gia}}</td>
                             <td>{{item.ghichu}}</td>
                             <td>
-                                <button class="btn btn-primary">Sửa</button>
-                                <button class="btn btn-danger">Xóa</button>
+                                <a href="#modalEditMenu" data-toggle="modal" (click)="loadEditMenu(item.id)" class="btn btn-primary">Sửa</a>
+                                <button type="button" (click)="removeMenu(item.id)" class="btn btn-danger">Xóa</button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+        </div>
+    </div>
+
+    <div id="modalEditMenu" class="modal hide">
+        <div class="modal-header">
+            <button data-dismiss="modal" class="close" type="button">×</button>
+            <h3>Alert modal</h3>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal" [formGroup]="editMenuForm">
+                <div class="control-group">
+                    <label class="control-label">Tên<em>*</em> :</label>
+                    <div class="controls">
+                        <input type="text" class="span11" [(ngModel)]="editMenu.ten" formControlName="ten">
+                    </div>
+                </div>
+                <div class="controls-group">
+                    <label class="control-label">Giá<em>*</em> : </label>
+                    <div class="controls">
+                        <div class="input-append">
+                            {{editMenu.gia}}
+                            <input type="text" placeholder="5.000" class="span11" [(ngModel)]="editMenu.gia" formControlName="gia">
+                            <span class="add-on">VND</span> </div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Ghi chú: </label>
+                    <div class="controls">
+                        <textarea class="span11" [(ngModel)]="editMenu.ghichu" formControlName="ghichu"></textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <a class="btn btn-inverse" href="#">Lưu</a>
+            <a data-dismiss="modal" class="btn btn-inverse" href="#">Hủy Bỏ</a>
         </div>
     </div>
 </div>

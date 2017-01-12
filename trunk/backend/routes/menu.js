@@ -25,13 +25,13 @@ router.get('/', function(req, res, next) {
         .done();
 });
 
-router.post('/', function(req, res, next) {
+router.get('/:id', function(req, res, next) {
     var connection = null;
     db
         .getConnection()
         .then(function(conn) {
             connection = conn;
-            return menuService.addMenu(connection, req.body);
+            return menuService.getEditMenu(connection, req.params.id);
         })
         .then(function(data) {
             res.json(data);
@@ -45,5 +45,56 @@ router.post('/', function(req, res, next) {
         })
         .done();
 });
+
+router.post('/', function(req, res, next) {
+    var connection = null;
+    db
+        .getConnection()
+        .then(function(conn) {
+            connection = conn;
+            return menuService.addMenu(connection, req.body);
+        })
+        .then(function(result) {
+            data = result;
+            return connection.commit();
+        })
+        .then(function() {
+            res.json(data)
+        })
+        .catch(function(err) {
+            next(err);
+            return connection.rollback();
+        })
+        .finally(function() {
+            if (connection) connection.release();
+        })
+        .done();
+});
+
+router.delete('/:id', function(req, res, next) {
+    var connection = null;
+    db
+        .getConnection()
+        .then(function(conn) {
+            connection = conn;
+            return menuService.deleteMenu(connection, req.params.id);
+        })
+        .then(function(result) {
+            data = result;
+            return connection.commit();
+        })
+        .then(function() {
+            res.json(data)
+        })
+        .catch(function(err) {
+            next(err);
+            return connection.rollback();
+        })
+        .finally(function() {
+            if (connection) connection.release();
+        })
+        .done();
+})
+
 
 module.exports = router;

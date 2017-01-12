@@ -17,10 +17,22 @@ export class MenuService {
         return result;
     }
 
+    getEditMenu(id): Observable<any> {
+        let result = this._baseService.getById(Url.MENU, id)
+            .map(this.extractData)
+            .catch(this.handleError);
+        return result;
+    }
+
     addMenu(data): Observable<any> {
         let result = this._baseService.create(Url.MENU, data)
                                         .map(this.extractData)
                                         .catch(this.handleError);
+        return result;
+    }
+
+    removeMenu(id): Observable<any> {
+        let result = this._baseService.remove(Url.MENU + '/' + id);
         return result;
     } 
 

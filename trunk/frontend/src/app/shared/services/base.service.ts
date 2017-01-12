@@ -34,6 +34,28 @@ export class BaseService {
         return this.execute(options);
     }
 
+    remove(url:string) {
+        var headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({
+            method: RequestMethod.Delete,
+            url: BaseUrl.BASE_URL + url,
+            headers: headers,
+        });
+
+        return this.execute(options);
+    }
+
+    getById(url:string, id:any) {
+        var headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({
+            method: RequestMethod.Get,
+            url: BaseUrl.BASE_URL + url + '/' + id,
+            headers: headers
+        });
+
+        return this.execute(options);
+    }
+
    private execute(options:any) {
        return this.http.request(new Request(options))
             .catch(
